@@ -37,7 +37,6 @@ import frc.robot.commands.Combo.ShortShot;
 import frc.robot.commands.Combo.Manual.closeShot;
 import frc.robot.commands.Combo.Manual.middleShot;
 import frc.robot.commands.Feeder.SetFeederSpeed;
-import frc.robot.commands.Intake.SimpleIntake;
 import frc.robot.commands.Intake.StopIntake;
 import frc.robot.commands.Shooter.SetShooterSpeed;
 import frc.robot.commands.Swerve.*;
