@@ -4,8 +4,12 @@
   "holonomicMode": true,
   "pathFolders": [
     "2 Note Amp Side",
-    "4 Note Outside",
-    "4 Note Inside"
+    "3 Note Amp Side",
+    "4 Note Inside",
+    "Amp and 2",
+    "Front 2",
+    "2 Amp 1 Speaker",
+    "Single Note Source"
   ],
   "autoFolders": [
     "New Folder"

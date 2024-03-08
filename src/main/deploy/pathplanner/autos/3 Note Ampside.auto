@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.6939426452992888,
-      "y": 4.382186700316462
+      "x": 0.7523718013035084,
+      "y": 6.690138362483131
     },
-    "rotation": -62.44718842328216
+    "rotation": 58.81502534126163
   },
   "command": {
     "type": "sequential",
@@ -22,15 +22,15 @@
           "data": {
             "commands": [
               {
-                "type": "path",
-                "data": {
-                  "pathName": "4NI Part 1"
-                }
-              },
-              {
                 "type": "named",
                 "data": {
                   "name": "runIntake"
+                }
+              },
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "3NO Part 1"
                 }
               }
             ]
@@ -55,7 +55,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "4NI Part 2"
+                  "pathName": "3NO Part 2"
                 }
               }
             ]
@@ -72,30 +72,18 @@
           "data": {
             "commands": [
               {
-                "type": "path",
-                "data": {
-                  "pathName": "4NI Part 3"
-                }
-              },
-              {
                 "type": "named",
                 "data": {
                   "name": "runIntake"
                 }
+              },
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "3NO Part 3"
+                }
               }
             ]
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "midShot"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "reset"
           }
         }
       ]

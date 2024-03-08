@@ -28,6 +28,7 @@ import frc.robot.commands.Climber.Arms.StopArms;
 import frc.robot.commands.Climber.Hooks.LowerHooks;
 import frc.robot.commands.Climber.Hooks.RaiseHooks;
 import frc.robot.commands.Climber.Hooks.StopHooks;
+import frc.robot.commands.Combo.AmpDrop;
 import frc.robot.commands.Combo.AutoIntake;
 import frc.robot.commands.Combo.AutoShoot;
 import frc.robot.commands.Combo.FarShot;
@@ -87,6 +88,7 @@ public class RobotContainer {
         NamedCommands.registerCommand("closeShot", new closeShot(m_arm, m_shooter, m_intake, m_feeder));
         NamedCommands.registerCommand("midShot", new middleShot(m_arm, m_shooter, m_intake, m_feeder));
         NamedCommands.registerCommand("reset", new ReturnToBasic(m_arm, m_shooter, m_intake, m_feeder));
+        NamedCommands.registerCommand("ampDrop", new AmpDrop(m_arm, m_intake, m_shooter, m_feeder));
 
         m_frontCamera = CameraServer.startAutomaticCapture(0);
 
