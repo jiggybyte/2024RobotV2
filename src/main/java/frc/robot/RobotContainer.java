@@ -1,5 +1,44 @@
 package frc.robot;
 
+import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.auto.NamedCommands;
+
+import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.cscore.UsbCamera;
+import edu.wpi.first.wpilibj.GenericHID;
+import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.PS5Controller;
+import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj2.command.*;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.Constants.ArmConstants;
+import frc.robot.Constants.OIConstants;
+import frc.robot.commands.Arm.ArmDown;
+import frc.robot.commands.Arm.ArmUp;
+import frc.robot.commands.Arm.SetArmAngle;
+import frc.robot.commands.Climber.Arms.ForceArmsDown;
+import frc.robot.commands.Climber.Arms.LowerArms;
+import frc.robot.commands.Climber.Arms.RaiseArms;
+import frc.robot.commands.Climber.Arms.ResetArms;
+import frc.robot.commands.Climber.Arms.StopArms;
+import frc.robot.commands.Climber.Hooks.LowerHooks;
+import frc.robot.commands.Climber.Hooks.RaiseHooks;
+import frc.robot.commands.Climber.Hooks.StopHooks;
+import frc.robot.commands.Combo.AutoIntake;
+import frc.robot.commands.Combo.AutoShoot;
+import frc.robot.commands.Combo.FarShot;
+import frc.robot.commands.Combo.MidShot;
+import frc.robot.commands.Combo.ReturnToBasic;
+import frc.robot.commands.Combo.ShortShot;
+import frc.robot.commands.Combo.Manual.closeShot;
+import frc.robot.commands.Combo.Manual.middleShot;
+import frc.robot.commands.Feeder.SetFeederSpeed;
+import frc.robot.commands.Intake.StopIntake;
+import frc.robot.commands.Shooter.SetShooterSpeed;
 import com.pathplanner.lib.auto.*;
 
 import edu.wpi.first.cameraserver.CameraServer;
@@ -60,10 +99,10 @@ public class RobotContainer {
         );
 
         // Commands that will show in PathPlanner
-        NamedCommands.registerCommand("runIntake", new SimpleIntake(m_intake).alongWith(new SetFeederSpeed(10, m_feeder)));
+        NamedCommands.registerCommand("runIntake", new AutoIntake(m_feeder, m_intake, m_arm, m_shooter));
         NamedCommands.registerCommand("stopIntake", new StopIntake(m_intake));
-        NamedCommands.registerCommand("closeShot", new ShortShot(m_arm, m_shooter, m_feeder, m_intake));
-        NamedCommands.registerCommand("midShot", new MidShot(m_arm, m_shooter, m_intake, m_feeder));
+        NamedCommands.registerCommand("closeShot", new closeShot(m_arm, m_shooter, m_intake, m_feeder));
+        NamedCommands.registerCommand("midShot", new middleShot(m_arm, m_shooter, m_intake, m_feeder));
         NamedCommands.registerCommand("reset", new ReturnToBasic(m_arm, m_shooter, m_intake, m_feeder));
 
         m_frontCamera = CameraServer.startAutomaticCapture(0);
@@ -89,7 +128,7 @@ public class RobotContainer {
        new JoystickButton(m_driver, PS5Controller.Button.kL1.value).whileTrue(new AutoIntake(m_feeder, m_intake, m_arm, m_shooter)).onFalse(new ReturnToBasic(m_arm, m_shooter, m_intake, m_feeder));
        new JoystickButton(m_driver, PS5Controller.Button.kCircle.value).whileTrue(new AutoShoot(m_shooter, m_swerve, m_light, m_feeder, m_arm, m_intake));
        new JoystickButton(m_driver, PS5Controller.Button.kOptions.value).onTrue(new ZeroHeading(m_swerve));
-       new JoystickButton(m_driver, PS5Controller.Button.kR1.value).toggleOnFalse(new SlowDrive(m_swerve));
+       new JoystickButton(m_driver, PS5Controller.Button.kR1.value).whileTrue(new SlowDrive(m_swerve));
 
        //Operator Buttons
         // Arm Commands

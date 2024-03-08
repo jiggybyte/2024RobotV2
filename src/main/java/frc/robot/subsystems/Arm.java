@@ -64,11 +64,11 @@ public class Arm extends ProfiledPIDSubsystem {
   }
 
   public void up() {
-    m_armMotor.set(0.85);
+    m_armMotor.set(1);
   }
 
   public void down() {
-    m_armMotor.set(-0.5);
+    m_armMotor.set(-0.75);
   }
 
   public double distanceToArmAngle(double distance) {

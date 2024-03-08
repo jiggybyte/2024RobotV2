@@ -30,7 +30,7 @@ public class AutoIntake extends SequentialCommandGroup {
       ),
       new ParallelDeadlineGroup(
         new WaitForNoNote(feeder), 
-        new SetFeederSpeed(-1, feeder),
+        new SetFeederSpeed(-2, feeder),
         new IdleOuttake(intake)
       ),
       new StopIntake(intake),
