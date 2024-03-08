@@ -11,9 +11,10 @@ import com.revrobotics.CANSparkLowLevel.MotorType;
 
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
+import edu.wpi.first.networktables.GenericEntry;
+import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
-import edu.wpi.first.wpilibj.shuffleboard.SuppliedValueWidget;
 import edu.wpi.first.wpilibj2.command.ProfiledPIDSubsystem;
 import frc.robot.Constants.FeederConstants;
 import frc.robot.LaserCANLS;
@@ -25,7 +26,7 @@ public class Feeder extends ProfiledPIDSubsystem {
 
   private final RelativeEncoder m_encoder;
 
-  private final SuppliedValueWidget<Boolean> m_hasNote;
+  private final GenericEntry m_hasNote;
   private final ShuffleboardTab m_tab = Shuffleboard.getTab("Main");
   
   /** Creates a new Feeder. */
@@ -50,7 +51,7 @@ public class Feeder extends ProfiledPIDSubsystem {
 
     m_controller.setTolerance(1);
 
-    m_hasNote = m_tab.addBoolean("Has Note", () -> haveNote());
+    m_hasNote = m_tab.add("Has Note",haveNote()).withWidget(BuiltInWidgets.kBooleanBox).getEntry();
   }
 
   @Override
@@ -79,7 +80,7 @@ public class Feeder extends ProfiledPIDSubsystem {
 
   public void periodic() {
     super.periodic();
-    m_hasNote.equals(haveNote());
+    m_hasNote.setBoolean(haveNote());
     // if (haveNote()) {
       // System.out.println("has note");
     // } else {

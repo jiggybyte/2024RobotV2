@@ -14,7 +14,7 @@ import frc.robot.Constants.LimelightConstants;
 public class Limelight extends SubsystemBase {
   /** Creates a new Limelight. */
   public Limelight() {
-    setCorrectTarget();
+    setCorrectTarget(); //TODO: make sure limelight is up to date
   }
 
   public double getDistance() {
