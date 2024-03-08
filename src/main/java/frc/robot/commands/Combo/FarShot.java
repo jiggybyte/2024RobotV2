@@ -38,7 +38,7 @@ public class FarShot extends SequentialCommandGroup {
         new WaitForNoNote(m_feeder), 
         new SetFeederSpeed(10, m_feeder)
       ),
-      new ReturnToBasic(m_arm, m_shooter, m_intake, m_feeder)
+      new ReturnToBasic(m_arm, m_shooter, m_intake, m_feeder).withTimeout(0.1)
     );
   }
 }
