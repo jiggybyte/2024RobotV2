@@ -10,15 +10,12 @@ import edu.wpi.first.wpilibj2.command.PIDCommand;
 import frc.robot.subsystems.Limelight;
 import frc.robot.subsystems.Swerve;
 
-// NOTE:  Consider using this command inline, rather than writing a subclass.  For more
-// information, see:
-// https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class PIDTurning extends PIDCommand {
   /** Creates a new PIDTurning. */
   public PIDTurning(Swerve swerve, Limelight light) {
     super(
         // The controller that the command will use
-        new PIDController(0, 0, 0),
+        new PIDController(0, 0, 0), //TODO: tune this
         // This should return the measurement
         () -> light.getTX(),
         // This should return the setpoint (can also be a constant)

@@ -14,6 +14,7 @@ import frc.robot.Constants.LimelightConstants;
 public class Limelight extends SubsystemBase {
   /** Creates a new Limelight. */
   public Limelight() {
+    setCorrectTarget();
   }
 
   public double getDistance() {
@@ -39,6 +40,16 @@ public class Limelight extends SubsystemBase {
       return true;
     } else {
       return false;
+    }
+  }
+
+  private void setCorrectTarget() {
+    if (DriverStation.getAlliance().get() == Alliance.Blue) {
+      LimelightHelpers.setPriorityTagID("", 1);
+    } else if (DriverStation.getAlliance().get() == Alliance.Red) {
+      LimelightHelpers.setPriorityTagID("", 3);
+    } else {
+      DriverStation.reportError("Did not get alliance to setup Limelight.", true);
     }
   }
 

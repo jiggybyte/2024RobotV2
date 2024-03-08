@@ -39,6 +39,23 @@ import frc.robot.commands.Combo.Manual.middleShot;
 import frc.robot.commands.Feeder.SetFeederSpeed;
 import frc.robot.commands.Intake.StopIntake;
 import frc.robot.commands.Shooter.SetShooterSpeed;
+import com.pathplanner.lib.auto.*;
+
+import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.cscore.UsbCamera;
+import edu.wpi.first.wpilibj.*;
+import edu.wpi.first.wpilibj.shuffleboard.*;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj2.command.*;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.Constants.*;
+import frc.robot.commands.Arm.*;
+import frc.robot.commands.Climber.Arms.*;
+import frc.robot.commands.Climber.Hooks.*;
+import frc.robot.commands.Combo.*;
+import frc.robot.commands.Feeder.*;
+import frc.robot.commands.Intake.*;
+import frc.robot.commands.Shooter.*;
 import frc.robot.commands.Swerve.*;
 import frc.robot.subsystems.*;
 
