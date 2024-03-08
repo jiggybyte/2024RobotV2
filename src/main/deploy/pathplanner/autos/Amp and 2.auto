@@ -2,19 +2,44 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.6939426452992888,
-      "y": 4.382186700316462
+      "x": 0.5186551772866305,
+      "y": 7.683434014554862
     },
-    "rotation": -62.44718842328216
+    "rotation": -90.0
   },
   "command": {
     "type": "sequential",
     "data": {
       "commands": [
         {
+          "type": "path",
+          "data": {
+            "pathName": "A2 Part 1"
+          }
+        },
+        {
           "type": "named",
           "data": {
-            "name": "closeShot"
+            "name": "ampDrop"
+          }
+        },
+        {
+          "type": "deadline",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "runIntake"
+                }
+              },
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "A2 Part 2"
+                }
+              }
+            ]
           }
         },
         {
@@ -24,7 +49,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "4NI Part 1"
+                  "pathName": "A2 Part 3"
                 }
               },
               {
@@ -55,16 +80,10 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "4NI Part 2"
+                  "pathName": "A2 Part 4"
                 }
               }
             ]
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "midShot"
           }
         },
         {
@@ -74,7 +93,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "4NI Part 3"
+                  "pathName": "A2 Part 5"
                 }
               },
               {
@@ -90,12 +109,6 @@
           "type": "named",
           "data": {
             "name": "midShot"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "reset"
           }
         }
       ]
