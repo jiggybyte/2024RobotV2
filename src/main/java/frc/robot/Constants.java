@@ -69,6 +69,10 @@ public final class Constants {
         public static final int kHookClimberID = 17;
     }
 
+    public final class LEDConstants {
+        public static final int kBlinkinPort = 1;
+    }
+
     public final class SwerveConstants {
         public static final int pigeonID = 1;
 
