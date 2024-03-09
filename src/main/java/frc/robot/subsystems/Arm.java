@@ -10,6 +10,10 @@ import com.revrobotics.CANSparkLowLevel.MotorType;
 
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
+import edu.wpi.first.networktables.GenericEntry;
+import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.ProfiledPIDSubsystem;
 import frc.robot.Constants.ArmConstants;
 
@@ -17,6 +21,9 @@ public class Arm extends ProfiledPIDSubsystem {
   private final CANSparkMax m_armMotor = new CANSparkMax(ArmConstants.kArmID, MotorType.kBrushless);
 
   private final RelativeEncoder m_encoder;
+
+  private GenericEntry m_armAngle;
+  private ShuffleboardTab m_tab;
 
   /** Creates a new Arm. */
   public Arm() {
@@ -38,6 +45,9 @@ public class Arm extends ProfiledPIDSubsystem {
     m_encoder.setPosition(0);
 
     m_controller.setTolerance(1);
+
+    m_tab = Shuffleboard.getTab("Main");
+    m_armAngle = m_tab.add("Arm Angle", getAngle()).withWidget(BuiltInWidgets.kTextView).getEntry();
 
     setAngle(0);
     enable();
@@ -82,5 +92,6 @@ public class Arm extends ProfiledPIDSubsystem {
   public void periodic() {
     super.periodic();
     // System.out.println("At setpoint: " + m_controller.atSetpoint());
+    m_armAngle.setDouble(getAngle());
   }
 }
