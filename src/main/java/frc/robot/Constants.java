@@ -59,9 +59,9 @@ public final class Constants {
     }
 
     public static final class LimelightConstants {
-        public static final double kMountAngleRadians = Units.degreesToRadians(20);
-        public static final double kLimelightLensHeightMeters = 0.2;
-        public static final double kGoalHeightMeters = Units.inchesToMeters(57.88);
+        public static final double kMountAngleRadians = Units.degreesToRadians(24);
+        public static final double kLimelightLensHeightMeters = Units.inchesToMeters(15.75);
+        public static final double kGoalHeightMeters = Units.inchesToMeters(53.875);
     }
 
     public final class ClimberConstants {

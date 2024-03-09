@@ -119,6 +119,10 @@ public class RobotContainer {
         // Misc. Commands
         new JoystickButton(m_operator, 5).onTrue(new ReturnToBasic(m_arm, m_shooter, m_intake, m_feeder));
         new JoystickButton(m_operator, 21).onTrue(new SetShooterSpeed(m_shooter, 0));
+
+        new JoystickButton(m_operator, 16).onTrue(new SetArmAngle(54, m_arm).alongWith(new SetShooterSpeed(m_shooter, 56))).onFalse(new ReturnToBasic(m_arm, m_shooter, m_intake, m_feeder));
+
+        new JoystickButton(m_operator, 7).onTrue(new SetFeederSpeed(10, m_feeder)).onFalse(new SetFeederSpeed(0, m_feeder));
     }
 
     /**

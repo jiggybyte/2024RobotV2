@@ -61,7 +61,7 @@ public class Shooter extends SubsystemBase {
   }
 
   public double distanceToRPM(double distance) {
-    return (distance * 20 + 30);
+    return (45.1 - (0.485 * distance) + (0.246 * distance * distance) - (0.0108 * distance * distance * distance));
   }
 
   public double getShooterSetpoint() {

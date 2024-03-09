@@ -5,16 +5,25 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.networktables.GenericEntry;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
+import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.LimelightHelpers;
 import frc.robot.Constants.LimelightConstants;
 
 public class Limelight extends SubsystemBase {
+  private GenericEntry m_distance;
+  private ShuffleboardTab m_tab;
+
   /** Creates a new Limelight. */
   public Limelight() {
-    setCorrectTarget(); //TODO: make sure limelight is up to date
+    setCorrectTarget();
+    m_tab = Shuffleboard.getTab("Main");
+    m_distance = m_tab.add("Distance", getDistance()).withWidget(BuiltInWidgets.kTextView).getEntry();
   }
 
   public double getDistance() {
@@ -22,7 +31,7 @@ public class Limelight extends SubsystemBase {
   }
 
   public double distanceToArmAngle(double distance) {
-    return ((getDistance() * 10.3) + 34.9);
+    return (32 + (distance * 5.98) + (10.7 * distance * distance) - (6.66 * distance * distance * distance) + (1.07 * distance * distance * distance * distance));
   }
 
   public double getTX() {
@@ -56,5 +65,6 @@ public class Limelight extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    m_distance.setDouble(getDistance());
   }
 }
