@@ -86,14 +86,14 @@ public class RobotContainer {
      * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
      */
     private void configureButtonBindings() {
-       // Driver Buttons
-    //    new JoystickButton(m_driver, PS5Controller.Button.kL1.value).whileTrue(new SimpleIntake(m_intake).alongWith(new SetFeederSpeed(10, m_feeder))).onFalse(new SetFeederSpeed(0, m_feeder));
-       new JoystickButton(m_driver, PS5Controller.Button.kL1.value).whileTrue(new AutoIntake(m_feeder, m_intake, m_arm, m_shooter)).onFalse(new ReturnToBasic(m_arm, m_shooter, m_intake, m_feeder));
-       new JoystickButton(m_driver, PS5Controller.Button.kCircle.value).whileTrue(new AutoShoot(m_shooter, m_swerve, m_light, m_feeder, m_arm, m_intake));
-       new JoystickButton(m_driver, PS5Controller.Button.kOptions.value).onTrue(new ZeroHeading(m_swerve));
-       new JoystickButton(m_driver, PS5Controller.Button.kR1.value).whileTrue(new SlowDrive(m_swerve));
+        // Driver Buttons
+        //new JoystickButton(m_driver, PS5Controller.Button.kL1.value).whileTrue(new SimpleIntake(m_intake).alongWith(new SetFeederSpeed(10, m_feeder))).onFalse(new SetFeederSpeed(0, m_feeder));
+        new JoystickButton(m_driver, PS5Controller.Button.kL1.value).whileTrue(new AutoIntake(m_feeder, m_intake, m_arm, m_shooter)).onFalse(new ReturnToBasic(m_arm, m_shooter, m_intake, m_feeder));
+        new JoystickButton(m_driver, PS5Controller.Button.kCircle.value).whileTrue(new AutoShoot(m_shooter, m_swerve, m_light, m_feeder, m_arm, m_intake)).onFalse(new ReturnToBasic(m_arm, m_shooter, m_intake, m_feeder));
+        new JoystickButton(m_driver, PS5Controller.Button.kOptions.value).onTrue(new ZeroHeading(m_swerve));
+        new JoystickButton(m_driver, PS5Controller.Button.kR1.value).whileTrue(new SlowDrive(m_swerve));
 
-       //Operator Buttons
+        //Operator Buttons
         // Arm Commands
         new JoystickButton(m_operator, 1).whileTrue(new ArmUp(m_arm));
         new JoystickButton(m_operator, 6).whileTrue(new ArmDown(m_arm));
