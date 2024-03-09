@@ -62,7 +62,7 @@ public class RobotContainer {
             )
         );
 
-        m_led.setDefaultCommand(new RunLEDs());
+        m_led.setDefaultCommand(new RunLEDs(m_led, m_feeder));
 
         // Commands that will show in PathPlanner
         NamedCommands.registerCommand("runIntake", new AutoIntake(m_feeder, m_intake, m_arm, m_shooter));
