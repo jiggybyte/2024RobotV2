@@ -31,7 +31,7 @@ public class Limelight extends SubsystemBase {
   }
 
   public double distanceToArmAngle(double distance) {
-    return (32 + (distance * 5.98) + (10.7 * distance * distance) - (6.66 * distance * distance * distance) + (1.07 * distance * distance * distance * distance));
+    return (36.4 - (23.9 * distance) + (28.5 * distance * distance) - (9.16 * distance * distance * distance) + (0.952 * distance * distance * distance * distance));
   }
 
   public double getTX() {
