@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj2.command.*;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.Constants.*;
 import frc.robot.commands.Arm.*;
+import frc.robot.commands.Blinkin.RunLEDs;
 import frc.robot.commands.Climber.Arms.*;
 import frc.robot.commands.Climber.Hooks.*;
 import frc.robot.commands.Combo.*;
@@ -40,6 +41,7 @@ public class RobotContainer {
     private final Shooter m_shooter = new Shooter();
     private final Limelight m_light = new Limelight();
     private final Climber m_climber = new Climber();
+    private final LED m_led = new LED();
 
     //Shuffleboard & Auto
     private final ShuffleboardTab m_tab = Shuffleboard.getTab("Main");
@@ -59,6 +61,8 @@ public class RobotContainer {
                 m_swerve
             )
         );
+
+        m_led.setDefaultCommand(new RunLEDs(m_led, m_feeder));
 
         // Commands that will show in PathPlanner
         NamedCommands.registerCommand("runIntake", new AutoIntake(m_feeder, m_intake, m_arm, m_shooter));
