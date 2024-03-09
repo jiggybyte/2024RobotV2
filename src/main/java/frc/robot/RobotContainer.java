@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj2.command.*;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.Constants.*;
 import frc.robot.commands.Arm.*;
+import frc.robot.commands.Blinkin.RunLEDs;
 import frc.robot.commands.Climber.Arms.*;
 import frc.robot.commands.Climber.Hooks.*;
 import frc.robot.commands.Combo.*;
@@ -40,6 +41,7 @@ public class RobotContainer {
     private final Shooter m_shooter = new Shooter();
     private final Limelight m_light = new Limelight();
     private final Climber m_climber = new Climber();
+    private final LED m_led = new LED();
 
     //Shuffleboard & Auto
     private final ShuffleboardTab m_tab = Shuffleboard.getTab("Main");
@@ -59,6 +61,8 @@ public class RobotContainer {
                 m_swerve
             )
         );
+
+        m_led.setDefaultCommand(new RunLEDs(m_led, m_feeder));
 
         // Commands that will show in PathPlanner
         NamedCommands.registerCommand("runIntake", new AutoIntake(m_feeder, m_intake, m_arm, m_shooter));
@@ -86,14 +90,14 @@ public class RobotContainer {
      * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
      */
     private void configureButtonBindings() {
-       // Driver Buttons
-    //    new JoystickButton(m_driver, PS5Controller.Button.kL1.value).whileTrue(new SimpleIntake(m_intake).alongWith(new SetFeederSpeed(10, m_feeder))).onFalse(new SetFeederSpeed(0, m_feeder));
-       new JoystickButton(m_driver, PS5Controller.Button.kL1.value).whileTrue(new AutoIntake(m_feeder, m_intake, m_arm, m_shooter)).onFalse(new ReturnToBasic(m_arm, m_shooter, m_intake, m_feeder));
-       new JoystickButton(m_driver, PS5Controller.Button.kCircle.value).whileTrue(new AutoShoot(m_shooter, m_swerve, m_light, m_feeder, m_arm, m_intake));
-       new JoystickButton(m_driver, PS5Controller.Button.kOptions.value).onTrue(new ZeroHeading(m_swerve));
-       new JoystickButton(m_driver, PS5Controller.Button.kR1.value).whileTrue(new SlowDrive(m_swerve));
+        // Driver Buttons
+        //new JoystickButton(m_driver, PS5Controller.Button.kL1.value).whileTrue(new SimpleIntake(m_intake).alongWith(new SetFeederSpeed(10, m_feeder))).onFalse(new SetFeederSpeed(0, m_feeder));
+        new JoystickButton(m_driver, PS5Controller.Button.kL1.value).whileTrue(new AutoIntake(m_feeder, m_intake, m_arm, m_shooter)).onFalse(new ReturnToBasic(m_arm, m_shooter, m_intake, m_feeder));
+        new JoystickButton(m_driver, PS5Controller.Button.kCircle.value).whileTrue(new AutoShoot(m_shooter, m_swerve, m_light, m_feeder, m_arm, m_intake)).onFalse(new ReturnToBasic(m_arm, m_shooter, m_intake, m_feeder));
+        new JoystickButton(m_driver, PS5Controller.Button.kOptions.value).onTrue(new ZeroHeading(m_swerve));
+        new JoystickButton(m_driver, PS5Controller.Button.kR1.value).whileTrue(new SlowDrive(m_swerve));
 
-       //Operator Buttons
+        //Operator Buttons
         // Arm Commands
         new JoystickButton(m_operator, 1).whileTrue(new ArmUp(m_arm));
         new JoystickButton(m_operator, 6).whileTrue(new ArmDown(m_arm));
@@ -119,6 +123,10 @@ public class RobotContainer {
         // Misc. Commands
         new JoystickButton(m_operator, 5).onTrue(new ReturnToBasic(m_arm, m_shooter, m_intake, m_feeder));
         new JoystickButton(m_operator, 21).onTrue(new SetShooterSpeed(m_shooter, 0));
+
+        new JoystickButton(m_operator, 16).onTrue(new SetArmAngle(54, m_arm).alongWith(new SetShooterSpeed(m_shooter, 56))).onFalse(new ReturnToBasic(m_arm, m_shooter, m_intake, m_feeder));
+
+        new JoystickButton(m_operator, 7).onTrue(new SetFeederSpeed(10, m_feeder)).onFalse(new SetFeederSpeed(0, m_feeder));
     }
 
     /**

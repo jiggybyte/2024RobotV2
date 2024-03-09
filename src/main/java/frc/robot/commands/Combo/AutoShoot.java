@@ -5,11 +5,13 @@
 package frc.robot.commands.Combo;
 
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.commands.Arm.SetArmAngle;
 import frc.robot.commands.Arm.WaitForArmAngle;
 import frc.robot.commands.Feeder.SetFeederSpeed;
+import frc.robot.commands.Feeder.WaitForNoNote;
+import frc.robot.commands.Feeder.WaitForNote;
 import frc.robot.commands.Shooter.SetShooterSpeed;
 import frc.robot.commands.Shooter.WaitForShooterSpeed;
 import frc.robot.commands.Swerve.PIDTurning;
@@ -26,13 +28,19 @@ public class AutoShoot extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new ParallelCommandGroup(
+      new ParallelDeadlineGroup(
+        new WaitForArmAngle(arm, light.distanceToArmAngle(light.getDistance())),
         new WaitForShooterSpeed(shooter, shooter.distanceToRPM(light.getDistance())),
-        new PIDTurning(swerve, light),
-        new WaitForArmAngle(arm, arm.distanceToArmAngle(light.getDistance()))
+        new PIDTurning(swerve, light)
       ),
-      new SetFeederSpeed(10, feeder),
-      new WaitCommand(0.25),
+      new ParallelDeadlineGroup(
+        new WaitForNote(feeder), 
+        new SetFeederSpeed(10, feeder)
+      ),
+      new ParallelDeadlineGroup(
+        new WaitForNoNote(feeder), 
+        new SetFeederSpeed(10, feeder)
+      ),
       new ParallelCommandGroup(
         new SetShooterSpeed(shooter, 0),
         new SetFeederSpeed(0, feeder),
