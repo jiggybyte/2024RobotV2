@@ -26,7 +26,7 @@ public class FarShot extends SequentialCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
       new ParallelDeadlineGroup(
-        new WaitForArmAngle(m_arm, ArmConstants.kSpeakerFarAngle),
+        new WaitForArmAngle(m_arm, () -> ArmConstants.kSpeakerFarAngle),
         new SetShooterSpeed(m_shooter, ShooterConstants.kShooterSpeedFarRPS),
         new IdleIntake(m_intake)
       ),

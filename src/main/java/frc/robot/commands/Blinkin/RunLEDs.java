@@ -17,6 +17,7 @@ public class RunLEDs extends Command {
     m_led = led;
     m_feeder = feeder;
     // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(led);
   }
 
   // Called when the command is initially scheduled.

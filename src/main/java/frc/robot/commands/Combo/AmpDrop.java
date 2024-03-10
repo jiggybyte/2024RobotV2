@@ -24,7 +24,7 @@ public class AmpDrop extends SequentialCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
       new ParallelDeadlineGroup(
-        new WaitForArmAngle(arm, ArmConstants.kAmpAngle), 
+        new WaitForArmAngle(arm, () -> ArmConstants.kAmpAngle), 
         new SetShooterSpeed(shooter, 5)
       ),
       new ParallelDeadlineGroup(

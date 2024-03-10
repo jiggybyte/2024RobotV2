@@ -26,7 +26,7 @@ public class closeShot extends SequentialCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
       new ParallelDeadlineGroup(
-        new WaitForArmAngle(arm, ArmConstants.kSpeakerCloseAngle), 
+        new WaitForArmAngle(arm, () -> ArmConstants.kSpeakerCloseAngle), 
         new SetShooterSpeed(shooter, ShooterConstants.kShooterSpeedCloseRPS),
         new IdleIntake(intake)
       ),

@@ -38,14 +38,14 @@ public class RobotContainer {
     private final Arm m_arm = new Arm();
     private final Intake m_intake = new Intake();
     private final Feeder m_feeder = new Feeder();
-    private final Shooter m_shooter = new Shooter();
     private final Limelight m_light = new Limelight();
+    private final Shooter m_shooter = new Shooter(m_light);    
     private final Climber m_climber = new Climber();
     private final LED m_led = new LED();
 
     //Shuffleboard & Auto
     private final ShuffleboardTab m_tab = Shuffleboard.getTab("Main");
-    private final UsbCamera m_frontCamera;
+    // private final UsbCamera m_frontCamera;
     private final SendableChooser<Command> m_chooser;
 
     // NamedCommands@registercommand("AutonYaw", new AutonYaw(m_swerve));
@@ -71,8 +71,9 @@ public class RobotContainer {
         NamedCommands.registerCommand("midShot", new middleShot(m_arm, m_shooter, m_intake, m_feeder));
         NamedCommands.registerCommand("reset", new ReturnToBasic(m_arm, m_shooter, m_intake, m_feeder));
         NamedCommands.registerCommand("ampDrop", new AmpDrop(m_arm, m_intake, m_shooter, m_feeder));
+        NamedCommands.registerCommand("autoShoot", new AutoShoot(m_shooter, m_swerve, m_light, m_feeder, m_arm, m_intake));
 
-        m_frontCamera = CameraServer.startAutomaticCapture(0);
+        // m_frontCamera = CameraServer.startAutomaticCapture(0);
 
         // Configure the button bindings
         configureButtonBindings();
@@ -80,7 +81,7 @@ public class RobotContainer {
         m_chooser = AutoBuilder.buildAutoChooser(); 
 
         m_tab.add("Auto Chooser", m_chooser);
-        m_tab.add("Camera", m_frontCamera).withPosition(6, 0).withSize(4, 4).withWidget(BuiltInWidgets.kCameraStream);
+        // m_tab.add("Camera", m_frontCamera).withPosition(6, 0).withSize(4, 4).withWidget(BuiltInWidgets.kCameraStream);
     }
 
     /**
@@ -123,10 +124,6 @@ public class RobotContainer {
         // Misc. Commands
         new JoystickButton(m_operator, 5).onTrue(new ReturnToBasic(m_arm, m_shooter, m_intake, m_feeder));
         new JoystickButton(m_operator, 21).onTrue(new SetShooterSpeed(m_shooter, 0));
-
-        new JoystickButton(m_operator, 16).onTrue(new SetArmAngle(54, m_arm).alongWith(new SetShooterSpeed(m_shooter, 56))).onFalse(new ReturnToBasic(m_arm, m_shooter, m_intake, m_feeder));
-
-        new JoystickButton(m_operator, 7).onTrue(new SetFeederSpeed(10, m_feeder)).onFalse(new SetFeederSpeed(0, m_feeder));
     }
 
     /**

@@ -4,6 +4,8 @@
 
 package frc.robot.subsystems;
 
+import java.util.function.DoubleSupplier;
+
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.networktables.GenericEntry;
 import edu.wpi.first.wpilibj.DriverStation;
@@ -16,8 +18,10 @@ import frc.robot.LimelightHelpers;
 import frc.robot.Constants.LimelightConstants;
 
 public class Limelight extends SubsystemBase {
-  private GenericEntry m_distance;
+  public GenericEntry m_distance;
   private ShuffleboardTab m_tab;
+
+  public double m_goodDistance = getDistance();
 
   /** Creates a new Limelight. */
   public Limelight() {
@@ -27,11 +31,16 @@ public class Limelight extends SubsystemBase {
   }
 
   public double getDistance() {
-    return (LimelightConstants.kGoalHeightMeters - LimelightConstants.kLimelightLensHeightMeters) / Math.tan(LimelightConstants.kMountAngleRadians + Units.degreesToRadians(LimelightHelpers.getTY("")));
+    double distanceNow = (LimelightConstants.kGoalHeightMeters - LimelightConstants.kLimelightLensHeightMeters) / Math.tan(LimelightConstants.kMountAngleRadians + Units.degreesToRadians(LimelightHelpers.getTY("")));
+    // System.out.println("Distance in GetDistance: " + distanceNow);
+    return distanceNow;
   }
 
-  public double distanceToArmAngle(double distance) {
-    return (36.4 - (23.9 * distance) + (28.5 * distance * distance) - (9.16 * distance * distance * distance) + (0.952 * distance * distance * distance * distance));
+  public double distanceToArmAngle(DoubleSupplier distance) {
+    // System.out.println("Distance: " + distance);
+    //System.out.println("Distance: " + distance + " Angle: " + (15.8 + (19.3 * distance.getAsDouble()) + (-2.51 * Math.pow(distance.getAsDouble(), 2))));
+    //return 39;
+    return  (14.7 + (21.6 * distance.getAsDouble()) + (-2.71 * Math.pow(distance.getAsDouble(), 2)));
   }
 
   public double getTX() {

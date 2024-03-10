@@ -26,7 +26,7 @@ public class Yeet extends SequentialCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
       new ParallelDeadlineGroup(
-        new WaitForArmAngle(m_arm, ArmConstants.kYeetAngle), 
+        new WaitForArmAngle(m_arm, () -> ArmConstants.kYeetAngle), 
         new SetArmAngle(ArmConstants.kYeetAngle, m_arm),
         new IdleIntake(m_intake)
       ),
