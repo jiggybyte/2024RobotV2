@@ -22,39 +22,37 @@ public class Limelight extends SubsystemBase {
   public double m_goodDistance = getDistance();
 
   /** Creates a new Limelight. */
-  public Limelight() {
+  public Limelight() { //TODO: name limelights and add intake methods
     setCorrectTarget();
     m_tab = Shuffleboard.getTab("Main");
     m_distance = m_tab.add("Distance", getDistance()).withWidget(BuiltInWidgets.kTextView).getEntry();
   }
 
   public double getDistance() {
-    double distanceNow = (LimelightConstants.kGoalHeightMeters - LimelightConstants.kLimelightLensHeightMeters) / Math.tan(LimelightConstants.kMountAngleRadians + Units.degreesToRadians(LimelightHelpers.getTY("")));
-    // System.out.println("Distance in GetDistance: " + distanceNow);
-    return distanceNow;
+    return (LimelightConstants.kGoalHeightMeters - LimelightConstants.kLimelightLensHeightMeters) / Math.tan(LimelightConstants.kMountAngleRadians + Units.degreesToRadians(LimelightHelpers.getTY("shooter")));
   }
 
-  public double distanceToArmAngle() {
+  public double getTargetArmAngle() {
     return  (14.7 + (21.6 * getDistance()) + (-2.71 * Math.pow(getDistance(), 2)));
   }
 
-  public double distanceToRPM() {
+  public double getTargetRPM() {
     return (15 + (45 * getDistance()));
   }
 
-  public double getTX() {
-    return LimelightHelpers.getTX("");
+  public double getTX(String limelight) {
+    return LimelightHelpers.getTX(limelight);
   }
 
-  public double getTY() {
-    return LimelightHelpers.getTY("");
+  public double getTY(String limelight) {
+    return LimelightHelpers.getTY(limelight);
   }
 
   private void setCorrectTarget() {
     if (DriverStation.getAlliance().get() == Alliance.Blue) {
-      LimelightHelpers.setPriorityTagID("", 1);
+      LimelightHelpers.setPriorityTagID("shooter", 1);
     } else if (DriverStation.getAlliance().get() == Alliance.Red) {
-      LimelightHelpers.setPriorityTagID("", 3);
+      LimelightHelpers.setPriorityTagID("shooter", 3);
     } else {
       DriverStation.reportError("Did not get alliance to setup Limelight.", true);
     }

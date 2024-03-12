@@ -29,8 +29,7 @@ public class AutoShoot extends SequentialCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
       new ParallelDeadlineGroup(
-        new WaitForArmAngle(arm, () -> light.distanceToArmAngle()),
-        // new PrintCommand("Distance: " + light.getDistance() + " Angle: " + (15.8 + (19.3 * light.getDistance()) + (-2.51 * Math.pow(light.getDistance(), 2)))),
+        new WaitForArmAngle(() -> light.getTargetArmAngle(), arm),
         new AutoRPM(shooter, light),
         new PIDTurning(swerve, light)
       ),
@@ -43,7 +42,7 @@ public class AutoShoot extends SequentialCommandGroup {
         new SetFeederSpeed(10, feeder)
       ),
       new ParallelCommandGroup(
-        new SetShooterSpeed(shooter, 0),
+        new SetShooterSpeed(0, shooter),
         new SetFeederSpeed(0, feeder),
         new SetArmAngle(0, arm)
       )

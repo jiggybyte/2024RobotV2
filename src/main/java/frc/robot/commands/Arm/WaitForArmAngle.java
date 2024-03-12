@@ -16,7 +16,7 @@ public class WaitForArmAngle extends Command {
   private final Timer m_timer;
 
   /** Creates a new WaitForArmAngle. */
-  public WaitForArmAngle(Arm arm, DoubleSupplier angle) {
+  public WaitForArmAngle(DoubleSupplier angle, Arm arm) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_arm = arm;
     m_angle = angle;

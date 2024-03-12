@@ -12,10 +12,10 @@ public class WaitForShooterSpeed extends Command {
   private final double m_speed;
 
   /** Creates a new WaitForShooterSpeed. */
-  public WaitForShooterSpeed(Shooter shooter, double speed) {
+  public WaitForShooterSpeed(double speed, Shooter shooter) {
     // Use addRequirements() here to declare subsystem dependencies.
-    m_shooter = shooter;
     m_speed = speed;
+    m_shooter = shooter;
   }
 
   // Called when the command is initially scheduled.

@@ -21,28 +21,28 @@ import frc.robot.subsystems.Shooter;
 
 public class Yeet extends SequentialCommandGroup {
   /** Creates a new Yeet. */
-  public Yeet(Arm m_arm, Shooter m_shooter, Feeder m_feeder, Intake m_intake) {
+  public Yeet(Arm arm, Shooter shooter, Feeder feeder, Intake intake) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
       new ParallelDeadlineGroup(
-        new WaitForArmAngle(m_arm, () -> ArmConstants.kYeetAngle), 
-        new SetArmAngle(ArmConstants.kYeetAngle, m_arm),
-        new IdleIntake(m_intake)
+        new WaitForArmAngle(() -> ArmConstants.kYeetAngle, arm), 
+        new SetArmAngle(ArmConstants.kYeetAngle, arm),
+        new IdleIntake(intake)
       ),
       new ParallelDeadlineGroup(
         new WaitCommand(1), 
-        new SetFeederSpeed(-1, m_feeder)
+        new SetFeederSpeed(-1, feeder)
       ),
       new ParallelDeadlineGroup(
         new WaitCommand(0.75), 
-        new SetShooterSpeed(m_shooter, ShooterConstants.kShooterSpeedYeetRPS)
+        new SetShooterSpeed(ShooterConstants.kShooterSpeedYeetRPS, shooter)
       ),
       new ParallelDeadlineGroup(
         new WaitCommand(0.5), 
-        new SetFeederSpeed(10, m_feeder)
+        new SetFeederSpeed(10, feeder)
       ),
-      new ReturnToBasic(m_arm, m_shooter, m_intake, m_feeder)
+      new ReturnToBasic(arm, shooter, intake, feeder)
     );
   }
 }

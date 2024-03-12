@@ -28,8 +28,7 @@ public class AutoRPM extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_shooter.setSpeed(m_light.distanceToRPM());
-    // System.out.println(m_shooter.distanceToRPM(() -> m_light.getDistance()));
+    m_shooter.setSpeed(m_light.getTargetRPM());
   }
 
   // Called once the command ends or is interrupted.
