@@ -81,10 +81,5 @@ public class Feeder extends ProfiledPIDSubsystem {
   public void periodic() {
     super.periodic();
     m_hasNote.setBoolean(haveNote());
-    // if (haveNote()) {
-      // System.out.println("has note");
-    // } else {
-      // System.out.println("no note");
-    // }
   }
 }

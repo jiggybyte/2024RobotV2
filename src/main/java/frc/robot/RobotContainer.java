@@ -43,10 +43,7 @@ public class RobotContainer {
 
     //Shuffleboard & Auto
     private final ShuffleboardTab m_tab = Shuffleboard.getTab("Main");
-    // private final UsbCamera m_frontCamera;
     private final SendableChooser<Command> m_chooser;
-
-    // NamedCommands@registercommand("AutonYaw", new AutonYaw(m_swerve));
 
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
     public RobotContainer() {
@@ -71,15 +68,12 @@ public class RobotContainer {
         NamedCommands.registerCommand("ampDrop", new AmpDrop(m_arm, m_intake, m_shooter, m_feeder));
         NamedCommands.registerCommand("autoShoot", new AutoShoot(m_shooter, m_swerve, m_light, m_feeder, m_arm, m_intake));
 
-        // m_frontCamera = CameraServer.startAutomaticCapture(0);
-
         // Configure the button bindings
         configureButtonBindings();
 
         m_chooser = AutoBuilder.buildAutoChooser(); 
 
         m_tab.add("Auto Chooser", m_chooser);
-        // m_tab.add("Camera", m_frontCamera).withPosition(6, 0).withSize(4, 4).withWidget(BuiltInWidgets.kCameraStream);
     }
 
     /**
@@ -90,7 +84,6 @@ public class RobotContainer {
      */
     private void configureButtonBindings() {
         // Driver Buttons
-        //new JoystickButton(m_driver, PS5Controller.Button.kL1.value).whileTrue(new SimpleIntake(m_intake).alongWith(new SetFeederSpeed(10, m_feeder))).onFalse(new SetFeederSpeed(0, m_feeder));
         new JoystickButton(m_driver, PS5Controller.Button.kL1.value).whileTrue(new AutoIntake(m_feeder, m_intake, m_arm, m_shooter)).onFalse(new ReturnToBasic(m_arm, m_shooter, m_intake, m_feeder));
         new JoystickButton(m_driver, PS5Controller.Button.kCircle.value).whileTrue(new AutoShoot(m_shooter, m_swerve, m_light, m_feeder, m_arm, m_intake)).onFalse(new ReturnToBasic(m_arm, m_shooter, m_intake, m_feeder));
         new JoystickButton(m_driver, PS5Controller.Button.kOptions.value).onTrue(new ZeroHeading(m_swerve));
@@ -117,11 +110,11 @@ public class RobotContainer {
 
         // Amp Commands
         new JoystickButton(m_operator, 11).onTrue(new SetArmAngle(ArmConstants.kAmpAngle, m_arm)).onFalse(new SetArmAngle(0, m_arm));
-        new JoystickButton(m_operator, 24).onTrue(new SetFeederSpeed(10, m_feeder).alongWith(new SetShooterSpeed(m_shooter, 10))).onFalse(new SetFeederSpeed(0, m_feeder).alongWith(new SetShooterSpeed(m_shooter, 0)));
+        new JoystickButton(m_operator, 24).onTrue(new SetFeederSpeed(10, m_feeder).alongWith(new SetShooterSpeed(10, m_shooter))).onFalse(new SetFeederSpeed(0, m_feeder).alongWith(new SetShooterSpeed(0, m_shooter)));
 
         // Misc. Commands
         new JoystickButton(m_operator, 5).onTrue(new ReturnToBasic(m_arm, m_shooter, m_intake, m_feeder));
-        new JoystickButton(m_operator, 21).onTrue(new SetShooterSpeed(m_shooter, 0));
+        new JoystickButton(m_operator, 21).onTrue(new SetShooterSpeed(0, m_shooter));
     }
 
     /**
