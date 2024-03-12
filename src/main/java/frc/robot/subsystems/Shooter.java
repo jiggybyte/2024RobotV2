@@ -4,8 +4,6 @@
 
 package frc.robot.subsystems;
 
-import java.util.function.DoubleSupplier;
-
 import com.ctre.phoenix6.configs.Slot0Configs;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.controls.MotionMagicVelocityVoltage;
@@ -20,8 +18,6 @@ import frc.robot.Constants.ShooterConstants;
 public class Shooter extends SubsystemBase {
   private final TalonFX m_topShooter = new TalonFX(ShooterConstants.kTopShooterID);
   private final TalonFX m_bottomShooter = new TalonFX(ShooterConstants.kBottomShooterID);
-
-  private final Limelight m_light;
 
   private final MotionMagicVelocityVoltage m_request = new MotionMagicVelocityVoltage(0);
 
@@ -55,8 +51,6 @@ public class Shooter extends SubsystemBase {
     m_targetRPS = m_tab.add("SetRPS", 1).getEntry();
     m_actualRPS = m_tab.add("Actual RPS", getActualRPS()).getEntry();
 
-    m_light = light;
-
     setSpeed(0);
 
     enable();
@@ -64,10 +58,6 @@ public class Shooter extends SubsystemBase {
 
   public void setSpeed(double rps) {
     m_shooterSetpoint = rps;
-  }
-
-  public double distanceToRPM(DoubleSupplier distance) {
-    return (15 + (45 * m_light.getDistance()));
   }
 
   public double getShooterSetpoint() {

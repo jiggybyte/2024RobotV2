@@ -4,8 +4,6 @@
 
 package frc.robot.subsystems;
 
-import java.util.function.DoubleSupplier;
-
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.networktables.GenericEntry;
 import edu.wpi.first.wpilibj.DriverStation;
@@ -14,8 +12,8 @@ import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.LimelightHelpers;
 import frc.robot.Constants.LimelightConstants;
+import frc.robot.LimelightHelpers;
 
 public class Limelight extends SubsystemBase {
   public GenericEntry m_distance;
@@ -36,11 +34,12 @@ public class Limelight extends SubsystemBase {
     return distanceNow;
   }
 
-  public double distanceToArmAngle(DoubleSupplier distance) {
-    // System.out.println("Distance: " + distance);
-    //System.out.println("Distance: " + distance + " Angle: " + (15.8 + (19.3 * distance.getAsDouble()) + (-2.51 * Math.pow(distance.getAsDouble(), 2))));
-    //return 39;
-    return  (14.7 + (21.6 * distance.getAsDouble()) + (-2.71 * Math.pow(distance.getAsDouble(), 2)));
+  public double distanceToArmAngle() {
+    return  (14.7 + (21.6 * getDistance()) + (-2.71 * Math.pow(getDistance(), 2)));
+  }
+
+  public double distanceToRPM() {
+    return (15 + (45 * getDistance()));
   }
 
   public double getTX() {
@@ -49,16 +48,6 @@ public class Limelight extends SubsystemBase {
 
   public double getTY() {
     return LimelightHelpers.getTY("");
-  }
-
-  public boolean hasCorrectTarget() {
-    if (DriverStation.getAlliance().get() == Alliance.Blue && LimelightHelpers.getFiducialID("") == 1) {
-      return true;
-    } else if (DriverStation.getAlliance().get() == Alliance.Red && LimelightHelpers.getFiducialID("") == 3) {
-      return true;
-    } else {
-      return false;
-    }
   }
 
   private void setCorrectTarget() {
