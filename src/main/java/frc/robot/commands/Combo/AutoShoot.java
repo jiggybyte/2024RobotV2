@@ -12,8 +12,8 @@ import frc.robot.commands.Arm.WaitForArmAngle;
 import frc.robot.commands.Feeder.SetFeederSpeed;
 import frc.robot.commands.Feeder.WaitForNoNote;
 import frc.robot.commands.Feeder.WaitForNote;
+import frc.robot.commands.Shooter.AutoRPM;
 import frc.robot.commands.Shooter.SetShooterSpeed;
-import frc.robot.commands.Shooter.WaitForShooterSpeed;
 import frc.robot.commands.Swerve.PIDTurning;
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Feeder;
@@ -29,8 +29,9 @@ public class AutoShoot extends SequentialCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
       new ParallelDeadlineGroup(
-        new WaitForArmAngle(arm, light.distanceToArmAngle(light.getDistance())),
-        new WaitForShooterSpeed(shooter, shooter.distanceToRPM(light.getDistance())),
+        new WaitForArmAngle(arm, () -> light.distanceToArmAngle()),
+        // new PrintCommand("Distance: " + light.getDistance() + " Angle: " + (15.8 + (19.3 * light.getDistance()) + (-2.51 * Math.pow(light.getDistance(), 2)))),
+        new AutoRPM(shooter, light),
         new PIDTurning(swerve, light)
       ),
       new ParallelDeadlineGroup(

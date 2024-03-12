@@ -26,7 +26,7 @@ public class ShortShot extends SequentialCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
       new ParallelDeadlineGroup(
-        new WaitForArmAngle(m_arm, ArmConstants.kSpeakerCloseAngle), 
+        new WaitForArmAngle(m_arm, () -> ArmConstants.kSpeakerCloseAngle), 
         new SetShooterSpeed(m_shooter, ShooterConstants.kShooterSpeedCloseRPS),
         new IdleIntake(m_intake)
       ),

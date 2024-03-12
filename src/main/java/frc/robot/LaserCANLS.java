@@ -12,7 +12,7 @@ public class LaserCANLS {
 
         try {
             m_LC.setRangingMode(LaserCan.RangingMode.SHORT);
-            m_LC.setRegionOfInterest(new LaserCan.RegionOfInterest(8, 8, 1, 1));
+            m_LC.setRegionOfInterest(new LaserCan.RegionOfInterest(8, 8, 2, 2));
             m_LC.setTimingBudget(LaserCan.TimingBudget.TIMING_BUDGET_50MS);
         } catch (Exception e) {
             System.out.println("LaserCAN ID: " + canID + " Configuration Failed: " + e);

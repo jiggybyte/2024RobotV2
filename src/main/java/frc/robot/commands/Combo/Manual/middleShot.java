@@ -26,7 +26,7 @@ public class middleShot extends SequentialCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
       new ParallelDeadlineGroup(
-        new WaitForArmAngle(arm, ArmConstants.kSpeakerMidAngle), 
+        new WaitForArmAngle(arm, () -> ArmConstants.kSpeakerMidAngle), 
         new SetShooterSpeed(shooter, ShooterConstants.kShooterSpeedMidRPS),
         new IdleIntake(intake)
       ),
