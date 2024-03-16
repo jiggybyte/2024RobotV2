@@ -18,6 +18,12 @@
           }
         },
         {
+          "type": "named",
+          "data": {
+            "name": "reset"
+          }
+        },
+        {
           "type": "deadline",
           "data": {
             "commands": [
@@ -39,7 +45,13 @@
         {
           "type": "named",
           "data": {
-            "name": "closeShot"
+            "name": "autoShoot"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "reset"
           }
         },
         {
@@ -64,7 +76,7 @@
         {
           "type": "named",
           "data": {
-            "name": "midShot"
+            "name": "autoShoot"
           }
         },
         {
@@ -89,7 +101,7 @@
         {
           "type": "named",
           "data": {
-            "name": "midShot"
+            "name": "autoShoot"
           }
         },
         {

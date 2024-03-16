@@ -12,51 +12,47 @@ import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.LimelightHelpers;
 import frc.robot.Constants.LimelightConstants;
+import frc.robot.LimelightHelpers;
 
 public class Limelight extends SubsystemBase {
-  private GenericEntry m_distance;
+  public GenericEntry m_distance;
   private ShuffleboardTab m_tab;
 
+  public double m_goodDistance = getDistance();
+
   /** Creates a new Limelight. */
-  public Limelight() {
+  public Limelight() { //TODO: name limelights and add intake methods
     setCorrectTarget();
     m_tab = Shuffleboard.getTab("Main");
     m_distance = m_tab.add("Distance", getDistance()).withWidget(BuiltInWidgets.kTextView).getEntry();
   }
 
   public double getDistance() {
-    return (LimelightConstants.kGoalHeightMeters - LimelightConstants.kLimelightLensHeightMeters) / Math.tan(LimelightConstants.kMountAngleRadians + Units.degreesToRadians(LimelightHelpers.getTY("")));
+    return (LimelightConstants.kGoalHeightMeters - LimelightConstants.kLimelightLensHeightMeters) / Math.tan(LimelightConstants.kMountAngleRadians + Units.degreesToRadians(LimelightHelpers.getTY("shooter")));
   }
 
-  public double distanceToArmAngle(double distance) {
-    return (32 + (distance * 5.98) + (10.7 * distance * distance) - (6.66 * distance * distance * distance) + (1.07 * distance * distance * distance * distance));
+  public double getTargetArmAngle() {
+    return  (14.7 + (21.6 * getDistance()) + (-2.71 * Math.pow(getDistance(), 2)));
   }
 
-  public double getTX() {
-    return LimelightHelpers.getTX("");
+  public double getTargetRPM() {
+    return (15 + (45 * getDistance()));
   }
 
-  public double getTY() {
-    return LimelightHelpers.getTY("");
+  public double getTX(String limelight) {
+    return LimelightHelpers.getTX(limelight);
   }
 
-  public boolean hasCorrectTarget() {
-    if (DriverStation.getAlliance().get() == Alliance.Blue && LimelightHelpers.getFiducialID("") == 1) {
-      return true;
-    } else if (DriverStation.getAlliance().get() == Alliance.Red && LimelightHelpers.getFiducialID("") == 3) {
-      return true;
-    } else {
-      return false;
-    }
+  public double getTY(String limelight) {
+    return LimelightHelpers.getTY(limelight);
   }
 
   private void setCorrectTarget() {
     if (DriverStation.getAlliance().get() == Alliance.Blue) {
-      LimelightHelpers.setPriorityTagID("", 1);
+      LimelightHelpers.setPriorityTagID("shooter", 1);
     } else if (DriverStation.getAlliance().get() == Alliance.Red) {
-      LimelightHelpers.setPriorityTagID("", 3);
+      LimelightHelpers.setPriorityTagID("shooter", 3);
     } else {
       DriverStation.reportError("Did not get alliance to setup Limelight.", true);
     }

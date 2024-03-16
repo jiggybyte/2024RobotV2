@@ -6,13 +6,16 @@ package frc.robot.commands.Swerve;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.PIDCommand;
 import frc.robot.subsystems.Limelight;
 import frc.robot.subsystems.Swerve;
 
-public class PIDTurning extends PIDCommand {
+public class PIDTranslation extends PIDCommand {
+  private final Timer m_timer = new Timer();
+
   /** Creates a new PIDTurning. */
-  public PIDTurning(Swerve swerve, Limelight light) {
+  public PIDTranslation(Swerve swerve, Limelight light) {
     super(
         // The controller that the command will use
         new PIDController(0.2, 0.1, 0), //TODO: tune this
@@ -23,10 +26,11 @@ public class PIDTurning extends PIDCommand {
         // This uses the output
         output -> {
           // Use the output here
-          swerve.drive(new Translation2d(), output, false, false);
+          swerve.drive(new Translation2d(output, 0), 0, false, false);
         });
     // Use addRequirements() here to declare subsystem dependencies.
     // Configure additional PID options by calling `getController` here.
+    m_timer.start();
     getController().setTolerance(1.5);
     addRequirements(swerve);
   }
@@ -34,6 +38,12 @@ public class PIDTurning extends PIDCommand {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return getController().atSetpoint();
+    if (m_timer.get() < 0.3) {
+      return false;
+    } else if(m_timer.get() > 1) {
+      return true;
+    } else {
+      return getController().atSetpoint();
+    }
   }
 }

@@ -11,10 +11,10 @@ public class SetShooterSpeed extends InstantCommand {
   private final Shooter m_shooter;
   private final double m_speed;
 
-  public SetShooterSpeed(Shooter shooter, double speed) {
+  public SetShooterSpeed(double speed, Shooter shooter) {
     // Use addRequirements() here to declare subsystem dependencies.
-    m_shooter = shooter;
     m_speed = speed;
+    m_shooter = shooter;
   }
 
   // Called when the command is initially scheduled.

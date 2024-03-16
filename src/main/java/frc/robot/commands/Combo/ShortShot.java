@@ -21,24 +21,24 @@ import frc.robot.subsystems.Shooter;
 
 public class ShortShot extends SequentialCommandGroup {
   /** Creates a new ShortShot. */
-  public ShortShot(Arm m_arm, Shooter m_shooter, Feeder m_feeder, Intake m_intake) {
+  public ShortShot(Arm arm, Shooter shooter, Feeder feeder, Intake intake) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
       new ParallelDeadlineGroup(
-        new WaitForArmAngle(m_arm, ArmConstants.kSpeakerCloseAngle), 
-        new SetShooterSpeed(m_shooter, ShooterConstants.kShooterSpeedCloseRPS),
-        new IdleIntake(m_intake)
+        new WaitForArmAngle(() -> ArmConstants.kSpeakerCloseAngle, arm), 
+        new SetShooterSpeed(ShooterConstants.kShooterSpeedCloseRPS, shooter),
+        new IdleIntake(intake)
       ),
       new ParallelDeadlineGroup(
-        new WaitForNote(m_feeder), 
-        new SetFeederSpeed(10, m_feeder)
+        new WaitForNote(feeder), 
+        new SetFeederSpeed(10, feeder)
       ),
       new ParallelDeadlineGroup(
-        new WaitForNoNote(m_feeder), 
-        new SetFeederSpeed(10, m_feeder)
+        new WaitForNoNote(feeder), 
+        new SetFeederSpeed(10, feeder)
       ),
-      new ReturnToBasic(m_arm, m_shooter, m_intake, m_feeder).withTimeout(0.1)
+      new ReturnToBasic(arm, shooter, intake, feeder).withTimeout(0.1)
     );
   }
 }

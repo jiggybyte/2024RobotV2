@@ -22,23 +22,23 @@ import frc.robot.subsystems.Shooter;
 
 public class MidShot extends SequentialCommandGroup {
   /** Creates a new MidShotTest. */
-  public MidShot(Arm  m_arm, Shooter m_shooter, Intake m_intake, Feeder m_feeder) {
+  public MidShot(Arm arm, Shooter shooter, Intake intake, Feeder feeder) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
       new ParallelDeadlineGroup(
-        new WaitForArmAngle(m_arm, ArmConstants.kSpeakerMidAngle),
-        new SetShooterSpeed(m_shooter, ShooterConstants.kShooterSpeedMidRPS),
-        new IdleIntake(m_intake)
+        new WaitForArmAngle(() -> ArmConstants.kSpeakerMidAngle, arm),
+        new SetShooterSpeed(ShooterConstants.kShooterSpeedMidRPS, shooter),
+        new IdleIntake(intake)
       ),
       new ParallelDeadlineGroup(
-        new WaitForNote(m_feeder), 
-        new SetFeederSpeed(10, m_feeder)
+        new WaitForNote(feeder), 
+        new SetFeederSpeed(10, feeder)
       ),
       new ParallelDeadlineGroup(
-        new WaitForNoNote(m_feeder), 
-        new SetFeederSpeed(10, m_feeder)),
-      new ReturnToBasic(m_arm, m_shooter, m_intake, m_feeder).withTimeout(0.1)
+        new WaitForNoNote(feeder), 
+        new SetFeederSpeed(10, feeder)),
+      new ReturnToBasic(arm, shooter, intake, feeder).withTimeout(0.1)
     );
   }
 }

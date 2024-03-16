@@ -17,14 +17,14 @@ import frc.robot.subsystems.Shooter;
 
 public class ReturnToBasic extends ParallelCommandGroup {
   /** Creates a new ReturnToBasic. */
-  public ReturnToBasic(Arm m_arm, Shooter m_shooter, Intake m_intake, Feeder m_feeder) {
+  public ReturnToBasic(Arm arm, Shooter shooter, Intake intake, Feeder feeder) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new SetArmAngle(ArmConstants.kArmHomeAngle, m_arm),
-      new SetFeederSpeed(0, m_feeder),
-      new StopIntake(m_intake),
-      new SetShooterSpeed(m_shooter, 0)
+      new SetArmAngle(ArmConstants.kArmHomeAngle, arm),
+      new SetFeederSpeed(0, feeder),
+      new StopIntake(intake),
+      new SetShooterSpeed(0, shooter)
     );
   }
 }

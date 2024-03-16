@@ -31,7 +31,7 @@ public class Shooter extends SubsystemBase {
   private double m_tolerance = 0;
 
   /** Creates a new Shooter. */
-  public Shooter() {
+  public Shooter(Limelight light) {
     TalonFXConfiguration talonFXConfigs = new TalonFXConfiguration();
 
     Slot0Configs slot0Configs = talonFXConfigs.Slot0;
@@ -58,10 +58,6 @@ public class Shooter extends SubsystemBase {
 
   public void setSpeed(double rps) {
     m_shooterSetpoint = rps;
-  }
-
-  public double distanceToRPM(double distance) {
-    return (45.1 - (0.485 * distance) + (0.246 * distance * distance) - (0.0108 * distance * distance * distance));
   }
 
   public double getShooterSetpoint() {
